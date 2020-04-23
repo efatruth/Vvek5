@@ -75,7 +75,7 @@ def doregister():
             usernames.append(i[1]['usr'])
 
         if usr not in usernames:
-            db.child("user").push({"usr":"usr", "pwd":pwd}) #Bætir við nýjum notanda 
+            db.child("user").push({"usr":usr, "pwd":pwd}) #Bætir við nýjum notanda 
             return render_template("registered.html")
         else:
             # ef notendanafn er til í grunninum nú þegar, viljum ekki hafa sama
