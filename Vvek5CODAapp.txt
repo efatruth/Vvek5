@@ -4,9 +4,9 @@ from flask import Flask, render_template, session, url_for, request, redirect, e
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'covid_19'
 
-# tengin viÃ° firebase realtime database Ã¡ firebase.google.com ( db hjÃ¡ danielsimongalvez@gmail.com )
+# tengin viğ firebase realtime database á firebase.google.com ( db hjá danielsimongalvez@gmail.com )
 config = {
-    # hÃ©r kemur tengingin Ã¾Ã­n viÃ° Firebase gagnagrunninn ( realtime database )
+    # hér kemur tengingin şín viğ Firebase gagnagrunninn ( realtime database )
     "apiKey": "AIzaSyCmra7ssC9AkRKVVgkJ6EF9kf524kXUgDM",
     "authDomain": "verkefni5-6a651.firebaseapp.com",
     "databaseURL": "https://verkefni5-6a651.firebaseio.com",
@@ -32,13 +32,13 @@ db = fb.database()
 ##print(auth.get_account_info(user['idToken']))
 
 
-# Test route til aÃ° setja gÃ¶gn Ã­ db
+# Test route til ağ setja gögn í db
 @app.route('/')
 def index():
-    #db.child("notandi").push({"notendanafn":"htg", "lykilorÃ°":4321}) 
+    #db.child("notandi").push({"notendanafn":"htg", "lykilorğ":4321}) 
     return render_template("index.html")
                                                                                                                                                   
-# Test route til aÃ° sÃ¦kja Ã¶ll gÃ¶gn Ãºr db
+# Test route til ağ sækja öll gögn úr db
 @app.route('/login',  methods=['GET','POST'])
 def login():
     
@@ -48,7 +48,7 @@ def login():
         pwd = request.form['psw']
 
         db.child("notandi").push({"notendanafn":usr,"lykilord":pwd}) 
-        #return "GÃ¶gn er komin Ã­ gagnagrunn"
+        #return "Gögn er komin í gagnagrunn"
         return render_template("topsecret.html")
 
 
@@ -66,7 +66,7 @@ def doregister():
         pwd = request.form['psw']
 
         db.child("notandi").push({"notendanafn":usr,"lykilord":pwd}) 
-        #return "GÃ¶gn er komin Ã­ gagnagrunn"
+        #return "Gögn er komin í gagnagrunn"
         return render_template("registered.html")
 
         
@@ -95,9 +95,9 @@ if __name__ == "__main__":
 	app.run(debug=True)
     
 
-# skrifum nÃ½jan Ã­ grunn hnÃºtur sem heitir notandi 
-# db.child("notandi").push({"notendanafn":"dsg", "lykilorÃ°":1234}) 
+# skrifum nıjan í grunn hnútur sem heitir notandi 
+# db.child("notandi").push({"notendanafn":"dsg", "lykilorğ":1234}) 
 
-# # fÃ¶rum Ã­ grunn og sÃ¦kjum allar raÃ°ir ( Ã¶ll gÃ¶gn )
+# # förum í grunn og sækjum allar rağir ( öll gögn )
 # u = db.child("notandi").get().val()
 # lst = list(u.items())
