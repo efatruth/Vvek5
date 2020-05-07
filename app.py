@@ -65,9 +65,26 @@ def doregister():
         usr = request.form['uname']
         pwd = request.form['psw']
 
+<<<<<<< HEAD
         db.child("notandi").push({"notendanafn":usr,"lykilord":pwd}) 
         #return "Gögn er komin í gagnagrunn"
         return render_template("registered.html")
+=======
+        # fórum í grúnn og athugum hvort notendanafn sé til í grunni
+        u = db.child("user").get().val()
+        lst = list(u.items())
+        for i in lst:
+            usernames.append(i[1]['usr'])
+
+        if usr not in usernames:
+            db.child("user").push({"usr":usr, "pwd":pwd}) #Bætir við nýjum notanda 
+            return render_template("registered.html")
+        else:
+            # ef notendanafn er til í grunninum nú þegar, viljum ekki hafa sama
+            return render_template("userexists.html")
+    else:
+        return render_template("no_method.html")
+>>>>>>> dd2328a7445a001e3b840cb3db72da4c485d15ba
 
         
 
