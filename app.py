@@ -41,7 +41,7 @@ def index():
 # Test route til að sækja öll gögn úr db
 @app.route('/login',  methods=['GET','POST'])
 def login():
-    
+    login = False
     if request.method == 'POST': 
 
         usr = request.form['uname']
@@ -51,6 +51,24 @@ def login():
         #return "Gögn er komin í gagnagrunn"
         return render_template("topsecret.html")
 
+        # sækja alla í gagnagrunninn og athugum hvort tiltekið notendanafn og lykilorð sé til
+        u = db.child("user").get().val()
+        lst = list(u.items())
+        for i in lst:
+            if usr == i[1]['usr'] and pwd == i[1]['pwd']:
+                login = True
+                break
+
+        if login:
+            # hefur aðgang
+            session['logged_in'] = usr
+            return redirect("/topsecret")
+        else:
+            #hefur ekii aðgang
+            return render_template("nologin.html")
+    else:
+        return render_template("no_method.html")
+
 
 @app.route('/register')
 def register():
@@ -59,17 +77,19 @@ def register():
 
 @app.route('/doregister',  methods=['GET','POST'])
 def doregister():
-    
+    usernames = []
     if request.method == 'POST':
 
         usr = request.form['uname']
         pwd = request.form['psw']
 
-<<<<<<< HEAD
+
+
+
         db.child("notandi").push({"notendanafn":usr,"lykilord":pwd}) 
         #return "Gögn er komin í gagnagrunn"
         return render_template("registered.html")
-=======
+
         # fórum í grúnn og athugum hvort notendanafn sé til í grunni
         u = db.child("user").get().val()
         lst = list(u.items())
@@ -84,9 +104,11 @@ def doregister():
             return render_template("userexists.html")
     else:
         return render_template("no_method.html")
->>>>>>> dd2328a7445a001e3b840cb3db72da4c485d15ba
 
-        
+
+
+
+
 
 @app.route('/logout')
 def logout():
@@ -110,7 +132,8 @@ def page_not_found(error):
 
 if __name__ == "__main__":
 	app.run(debug=True)
-    
+
+
 
 # skrifum nýjan í grunn hnútur sem heitir notandi 
 # db.child("notandi").push({"notendanafn":"dsg", "lykilorð":1234}) 
